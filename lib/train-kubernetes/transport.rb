@@ -5,6 +5,8 @@ module TrainPlugins
     class Transport < Train.plugin(1)
       name 'k8s'
       option :kubeconfig, default: ENV['KUBECONFIG'] || '~/.kube/config'
+      option :pod, default: nil
+      option :container, default: nil
       def connection(_instance_opts = nil)
         @connection ||= TrainPlugins::TrainKubernetes::Connection.new(@options)
       end
