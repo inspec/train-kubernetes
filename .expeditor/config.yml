@@ -25,6 +25,9 @@ github:
   major_bump_labels:
     - "Expeditor: Bump Version Major"
 
+pipelines:
+  - verify
+
 changelog:
   rollup_header: Changes not yet released to rubygems.org
 
@@ -45,7 +48,7 @@ subscriptions:
       - built_in:build_gem:
           only_if: built_in:bump_version
 
-promote:
-  actions:
-    - built_in:rollover_changelog
-    - built_in:publish_rubygems
+  - workload: project_promoted:{{agent_id}}:*
+    actions:
+      - built_in:rollover_changelog
+      - built_in:publish_rubygems
