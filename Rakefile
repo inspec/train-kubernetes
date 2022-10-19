@@ -2,6 +2,10 @@
 
 require 'rake/testtask'
 require 'rubocop/rake_task'
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec)
 
 # run tests
 desc 'default checks'
@@ -9,7 +13,7 @@ task default: [:lint]
 
 # Rubocop
 desc 'Run Rubocop lint checks'
-task :rubocop do
+task :style do
   RuboCop::RakeTask.new
 end
 
@@ -29,3 +33,5 @@ begin
 rescue LoadError
   puts '>>>>> GitHub Changelog Generator not loaded, omitting tasks'
 end
+
+task default: :spec
