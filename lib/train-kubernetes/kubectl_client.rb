@@ -4,6 +4,7 @@ module TrainPlugins
   module TrainKubernetes
     class KubectlClient
       attr_reader :pod, :container
+
       def initialize(pod:, container: nil)
         @pod = pod
         @container = container
@@ -22,9 +23,9 @@ module TrainPlugins
       end
 
       def build_instruction(command, stdin, tty)
-        ["kubectl exec"].tap do |arr|
+        ['kubectl exec'].tap do |arr|
           arr << '--stdin' if stdin
-          arr << "--tty" if tty
+          arr << '--tty' if tty
           arr << pod if pod
           arr << command
         end.join("\s")
