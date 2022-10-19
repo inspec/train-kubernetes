@@ -1,6 +1,7 @@
 require 'train'
 require 'k8s-ruby'
 require 'train-kubernetes/platform'
+require 'train-kubernetes/kubectl_client'
 
 module TrainPlugins
   module TrainKubernetes
