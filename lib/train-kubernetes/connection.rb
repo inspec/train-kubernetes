@@ -12,6 +12,7 @@ module TrainPlugins
         super(options)
         @pod = options[:pod]
         @container = options[:container]
+        @namespace = options[:namespace]
         parse_kubeconfig
         connect
       end
@@ -40,10 +41,10 @@ module TrainPlugins
 
       private
 
-      attr_reader :pod, :container
+      attr_reader :pod, :container, :namespace
 
       def run_command_via_connection(cmd, &_data_handler)
-        KubectlClient.new(pod: pod, container: container).execute(cmd)
+        KubectlClient.new(pod: pod, container: container, namespace: namespace).execute(cmd)
       end
     end
   end
