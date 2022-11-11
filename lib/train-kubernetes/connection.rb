@@ -10,9 +10,9 @@ module TrainPlugins
 
       def initialize(options)
         super(options)
-        @pod = options[:pod]
+        @pod = options[:pod] || options[:path]&.gsub('/', '')
         @container = options[:container]
-        @namespace = options[:namespace]
+        @namespace = options[:namespace] || options[:host]
         parse_kubeconfig
         connect
       end
