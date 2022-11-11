@@ -7,6 +7,7 @@ module TrainPlugins
       option :kubeconfig, default: ENV['KUBECONFIG'] || '~/.kube/config'
       option :pod, default: nil
       option :container, default: nil
+      option :namespace, default: nil
       def connection(_instance_opts = nil)
         @connection ||= TrainPlugins::TrainKubernetes::Connection.new(@options)
       end
