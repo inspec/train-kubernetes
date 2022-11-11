@@ -27,7 +27,6 @@ module TrainPlugins
       def build_instruction(command, stdin, tty)
         ['kubectl exec'].tap do |arr|
           arr << '--stdin' if stdin
-          arr << '--tty' if tty
           arr << pod if pod
           arr << '-n'
           arr << namespace
