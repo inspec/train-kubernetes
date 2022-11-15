@@ -43,8 +43,11 @@ module TrainPlugins
 
       attr_reader :pod, :container, :namespace
 
-      def run_command_via_connection(cmd, &_data_handler)
-        KubectlClient.new(pod: pod, container: container, namespace: namespace).execute(cmd)
+      def run_command_via_connection(cmd, opts = {}, &_data_handler)
+        KubectlClient.new(pod: opts[:pod] || pod,
+                          container: opts[:container] || container,
+                          namespace: opts[:namespace] || namespace)
+                     .execute(cmd)
       end
     end
   end
