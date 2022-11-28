@@ -49,6 +49,10 @@ module TrainPlugins
                           namespace: opts[:namespace] || namespace)
                      .execute(cmd)
       end
+
+      def file_via_connection(path, pod:, namespace:, container: nil)
+        TrainPlugins::TrainKubernetes::File::Linux.new(self, path, pod: pod, container: container, namespace: namespace)
+      end
     end
   end
 end
