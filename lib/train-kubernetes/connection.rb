@@ -36,7 +36,7 @@ module TrainPlugins
 
       def parse_kubeconfig
         kubeconfig_file = @options[:kubeconfig] if @options[:kubeconfig]
-        @client = K8s::Client.config(K8s::Config.load_file(File.expand_path(kubeconfig_file)))
+        @client = K8s::Client.config(K8s::Config.load_file(::File.expand_path(kubeconfig_file)))
       end
 
       private
