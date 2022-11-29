@@ -50,8 +50,8 @@ module TrainPlugins
                      .execute(cmd)
       end
 
-      def file_via_connection(path, pod:, namespace:, container: nil)
-        TrainPlugins::TrainKubernetes::File::Linux.new(self, path, pod: pod, container: container, namespace: namespace)
+      def file_via_connection(path, **args)
+        TrainPlugins::TrainKubernetes::File::Linux.new(self, path, pod: args[:pod], container: args[:container], namespace: args[:namespace])
       end
     end
   end
