@@ -18,3 +18,4 @@ require 'train-kubernetes/version'
 # Transport acts as the glue.
 require 'train-kubernetes/transport'
 require 'train-kubernetes/platform'
+require 'train-kubernetes/file/linux'
