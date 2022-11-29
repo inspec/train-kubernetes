@@ -13,7 +13,7 @@ module TrainPlugins
           @namespace = args[:namespace]
 
           sanitize_filename(path)
-          super
+          super(backend, path, follow_symlink)
         end
 
         def content
