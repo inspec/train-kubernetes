@@ -31,7 +31,7 @@ module TrainPlugins
 
         def content=(new_content)
           execute_result = @backend.run_command('base64 --help', { pod: pod, namespace: namespace, container: container })
-          if execute_result.exitstatus != 0
+          if execute_result.exit_status != 0
             raise TransportError, "#{self.class} found no base64 binary for file writes"
           end
 
@@ -49,7 +49,7 @@ module TrainPlugins
             f = @follow_symlink ? '' : " || test -L #{@spath}"
             @backend.run_command("test -e #{@spath}" + f,
                                  { pod: pod, namespace: namespace, container: container })
-                    .exitstatus == 0
+                    .exit_status == 0
           end
         end
 
@@ -113,6 +113,18 @@ module TrainPlugins
           else
             self
           end
+        end
+
+        def user_permissions
+          return {} unless exist?
+
+          skip_reource '`user_permissions` is not supported on your Linux Containers yet.'
+        end
+
+        def inherited?
+          return false unless exist?
+
+          skip_resource '`inherited?` is not supported on your Linux Containers yet.'
         end
 
         private
