@@ -142,7 +142,7 @@ module TrainPlugins
           full_path
         end
 
-        attr_reader :pod, :container, :namespace, :path
+        attr_reader :pod, :container, :namespace
       end
     end
   end
