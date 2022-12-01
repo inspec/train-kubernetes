@@ -14,7 +14,11 @@ module TrainPlugins
 
         def find_utility_or_error(utility_name)
           %W(/usr/sbin/#{utility_name} /sbin/#{utility_name} /usr/bin/#{utility_name} /bin/#{utility_name} #{utility_name}).each do |cmd|
-            return cmd if inspec.backend.command(cmd, { pod: pod, container: container, namespace: namespace }).exist?
+            if inspec.backend
+                     .run_command("sh -c 'type \"#{cmd}\"'", { pod: pod, container: container, namespace: namespace })
+                     .exit_status.to_i == 0
+              return cmd
+            end
           end
 
           raise Inspec::Exceptions::ResourceFailed, "Could not find `#{utility_name}`"
@@ -25,8 +29,8 @@ module TrainPlugins
           # This logic check is valid for immutable flag set with chattr
           utility = find_utility_or_error('lsattr')
 
-          utility_cmd = inspec.backend.command("#{utility} #{file_path}",
-                                               { pod: pod, container: container, namespace: namespace })
+          utility_cmd = inspec.backend.run_command("#{utility} #{file_path}",
+                                                   { pod: pod, container: container, namespace: namespace })
 
           raise Inspec::Exceptions::ResourceFailed, "Executing #{utility} #{file_path} failed: #{utility_cmd.stderr}" if utility_cmd.exit_status.to_i != 0
 
