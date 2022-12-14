@@ -28,6 +28,13 @@ describe k8sobject(api: 'v1', type: 'pod', namespace: 'default', name: 'my-pod')
 end
 ```
 
+## File resource
+```ruby
+inspec.backend.file('PATH', pod: 'POD', container: 'CONTAINER', namespace: 'NAMESPACE')
+```
+Currently it supports only Linux based containers
+
+
 ## Preconditions
 
 - InSpec 3.7+ or 4.x+

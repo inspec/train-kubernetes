@@ -1,9 +1,11 @@
 require 'mixlib/shellout'
+require 'train/extras'
 
 module TrainPlugins
   module TrainKubernetes
     class KubectlClient
       attr_reader :pod, :container, :namespace
+
       DEFAULT_NAMESPACE = 'default'.freeze
 
       def initialize(pod:, namespace: nil, container: nil)
@@ -15,7 +17,10 @@ module TrainPlugins
       def execute(command, stdin: true, tty: true)
         instruction = build_instruction(command, stdin, tty)
         shell = Mixlib::ShellOut.new(instruction)
-        shell.run_command
+        res = shell.run_command
+        Train::Extras::CommandResult.new(res.stdout, res.stderr, res.exitstatus)
+      rescue Errno::ENOENT => _e
+        Train::Extras::CommandResult.new('', '', 1)
       end
 
       private
@@ -24,7 +29,7 @@ module TrainPlugins
         @shell ||= Mixlib::ShellOut.new(instruction)
       end
 
-      def build_instruction(command, stdin, tty)
+      def build_instruction(command, stdin, _tty)
         ['kubectl exec'].tap do |arr|
           arr << '--stdin' if stdin
           arr << pod if pod

@@ -36,7 +36,7 @@ module TrainPlugins
 
       def parse_kubeconfig
         kubeconfig_file = @options[:kubeconfig] if @options[:kubeconfig]
-        @client = K8s::Client.config(K8s::Config.load_file(File.expand_path(kubeconfig_file)))
+        @client = K8s::Client.config(K8s::Config.load_file(::File.expand_path(kubeconfig_file)))
       end
 
       private
@@ -48,6 +48,10 @@ module TrainPlugins
                           container: opts[:container] || container,
                           namespace: opts[:namespace] || namespace)
                      .execute(cmd)
+      end
+
+      def file_via_connection(path, **args)
+        TrainPlugins::TrainKubernetes::File::Linux.new(self, path, pod: args[:pod], container: args[:container], namespace: args[:namespace])
       end
     end
   end
