@@ -45,6 +45,6 @@ Gem::Specification.new do |spec|
 
   # All plugins should mention train, > 1.4
   # pinning k8s-ruby to 0.10.5 to avoid broken dry-type gem upgrades from k8s-ruby
-  spec.add_dependency 'k8s-ruby', '0.13.0'
+  spec.add_dependency 'k8s-ruby', '~> 0.14.0'
   spec.add_dependency 'train', '~> 3.0'
 end
