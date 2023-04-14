@@ -1,16 +1,17 @@
 # CHANGELOG
 
-<!-- latest_release 0.1.11 -->
-## [v0.1.11](https://github.com/inspec/train-kubernetes/tree/v0.1.11) (2022-12-01)
+<!-- latest_release 0.1.12 -->
+## [v0.1.12](https://github.com/inspec/train-kubernetes/tree/v0.1.12) (2023-04-14)
 
 #### Merged Pull Requests
-- CFINSPEC-504 k8s-ruby version update [#7](https://github.com/inspec/train-kubernetes/pull/7) ([Vasu1105](https://github.com/Vasu1105))
+- allow to update k8s-ruby to recent most version [#10](https://github.com/inspec/train-kubernetes/pull/10) ([sathish-progress](https://github.com/sathish-progress))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.1.10 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- allow to update k8s-ruby to recent most version [#10](https://github.com/inspec/train-kubernetes/pull/10) ([sathish-progress](https://github.com/sathish-progress)) <!-- 0.1.12 -->
 - CFINSPEC-504 k8s-ruby version update [#7](https://github.com/inspec/train-kubernetes/pull/7) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.11 -->
 <!-- release_rollup -->
 
