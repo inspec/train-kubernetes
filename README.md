@@ -41,8 +41,9 @@ Currently it supports only Linux based containers
 - Ruby 2.4+
 - You have set the env var KUBECONFIG or have a valid ~/.kube/config
 
-
 ## Installation
+
+**_NOTE:_** **_The train-kubernetes plugin now comes included with InSpec 5.22.0 and later, and does not require installation separately._**
 
 Train plugins are distributed as gems.  You may choose to manage the gem yourself, but if you are an InSpec user, InSPec can handle it for you.
 
@@ -82,12 +83,12 @@ Families:  cloud, api
 Release:   0.1.3
 ```
 
-## Troubleshooting
+## Troubleshooting (Only applicable for InSpec version 5.21.* and earlier)
 
 If you run into issues installing via `inspec plugin install train-kubernetes`, try:
 
 * Try running `gem install train-kubernetes` before `inspec plugin install train-kubernetes`.
-* Ensure the `~/.inspec/plugins.json` has `"0.1.3"` and not `"= 0.1.3"` for the `version` value.  Modify it by hand if needed. 
+* Ensure the `~/.inspec/plugins.json` has `"0.1.3"` and not `"= 0.1.3"` for the `version` value.  Modify it by hand if needed.
 * Ensure you can cleanly install the `k8s-ruby` gem version `0.10.4` or greater.  e.g. `gem install k8s-ruby -v 0.10.4`
 * Ensure that only one version of the `excon` gem is installed.  e.g. `gem list | grep excon`.  If you see two versions, `gem uninstall excon` and remove the older version.
 
