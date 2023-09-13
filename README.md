@@ -4,7 +4,7 @@ This plugin allows applications that rely on Train to communicate with the Kuber
 
 ## Usage
 
-When used in combination with the [InSpec Kubernetes Resource Pack](https://github.com/bgeesaman/inspec-k8s) you can validate the spec of any Kubernetes resource you have access to:
+When used in combination with the [InSpec Kubernetes Resource Pack](https://github.com/inspec/inspec-k8s) you can validate the spec of any Kubernetes resource you have access to:
 
 ```ruby
 describe k8sobjects(api: 'v1', type: 'pods', namespace: 'default', labelSelector: 'run=nginx') do
