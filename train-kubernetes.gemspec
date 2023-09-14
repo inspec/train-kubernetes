@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['bradgeesaman@gmail.com']
   spec.summary       = 'Train Kubernetes'
   spec.description   = 'A Train "transport" plugin for Chef Inspec that allows testing of all Kubernetes API resources'
-  spec.homepage      = 'https://github.com/bgeesaman/train-kubernetes'
+  spec.homepage      = 'https://github.com/inspec/train-kubernetes'
   spec.license       = 'Apache-2.0'
 
   spec.required_ruby_version = '>= 2.4'
