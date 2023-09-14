@@ -94,7 +94,7 @@ If you run into issues installing via `inspec plugin install train-kubernetes`, 
 
 ## Reporting Issues
 
-Bugs, typos, limitations, and frustrations are welcome to be reported through the [GitHub issues page for the train-kubernetes project](https://github.com/bgeesaman/train-kubernetes/issues).
+Bugs, typos, limitations, and frustrations are welcome to be reported through the [GitHub issues page for the train-kubernetes project](https://github.com/inspec/train-kubernetes/issues).
 
 You may also ask questions in the #inspec channel of the Chef Community Slack team.  However, for an issue to get traction, please report it as a github issue.
 
