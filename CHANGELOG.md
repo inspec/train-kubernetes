@@ -1,17 +1,17 @@
 # CHANGELOG
 
-<!-- latest_release 0.1.14 -->
-## [v0.1.14](https://github.com/inspec/train-kubernetes/tree/v0.1.14) (2023-09-14)
+<!-- latest_release unreleased -->
+## Unreleased
 
 #### Merged Pull Requests
-- Fix broken link for github train-kubernetes issues page [#15](https://github.com/inspec/train-kubernetes/pull/15) ([Vasu1105](https://github.com/Vasu1105))
-- update resource pack link in README to inspec/inspec-k8s repo [#14](https://github.com/inspec/train-kubernetes/pull/14) ([jrbeilke](https://github.com/jrbeilke))
+- Fix the broken link for homepage in gemspec file [#16](https://github.com/inspec/train-kubernetes/pull/16) ([Vasu1105](https://github.com/Vasu1105))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.1.10 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Fix the broken link for homepage in gemspec file [#16](https://github.com/inspec/train-kubernetes/pull/16) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.14 -->
 - Fix broken link for github train-kubernetes issues page [#15](https://github.com/inspec/train-kubernetes/pull/15) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.14 -->
 - update resource pack link in README to inspec/inspec-k8s repo [#14](https://github.com/inspec/train-kubernetes/pull/14) ([jrbeilke](https://github.com/jrbeilke)) <!-- 0.1.13 -->
 - CHEF-2522: README Updates for train-kubernetes installation [#11](https://github.com/inspec/train-kubernetes/pull/11) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.13 -->
