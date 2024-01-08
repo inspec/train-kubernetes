@@ -26,7 +26,11 @@ github:
     - "Expeditor: Bump Version Major"
 
 pipelines:
-  - verify
+  - verify:
+      description: Pull Request validation tests
+  - coverage:
+      description: Generate test coverage report
+      trigger: pull_request
 
 changelog:
   rollup_header: Changes not yet released to rubygems.org
