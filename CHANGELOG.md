@@ -1,9 +1,10 @@
 # CHANGELOG
 
-<!-- latest_release unreleased -->
-## Unreleased
+<!-- latest_release 0.1.15 -->
+## [v0.1.15](https://github.com/inspec/train-kubernetes/tree/v0.1.15) (2024-01-08)
 
 #### Merged Pull Requests
+- CHEF-7501 Configures SonarQube for code coverage analysis [#19](https://github.com/inspec/train-kubernetes/pull/19) ([Vasu1105](https://github.com/Vasu1105))
 - Fix the broken link for homepage in gemspec file [#16](https://github.com/inspec/train-kubernetes/pull/16) ([Vasu1105](https://github.com/Vasu1105))
 <!-- latest_release -->
 
@@ -11,6 +12,7 @@
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- CHEF-7501 Configures SonarQube for code coverage analysis [#19](https://github.com/inspec/train-kubernetes/pull/19) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.15 -->
 - Fix the broken link for homepage in gemspec file [#16](https://github.com/inspec/train-kubernetes/pull/16) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.14 -->
 - Fix broken link for github train-kubernetes issues page [#15](https://github.com/inspec/train-kubernetes/pull/15) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.14 -->
 - update resource pack link in README to inspec/inspec-k8s repo [#14](https://github.com/inspec/train-kubernetes/pull/14) ([jrbeilke](https://github.com/jrbeilke)) <!-- 0.1.13 -->
