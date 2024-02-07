@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
   # Do not list inspec as a dependency of the train plugin.
 
   # All plugins should mention train, > 1.4
-  # pinning k8s-ruby to 0.10.5 to avoid broken dry-type gem upgrades from k8s-ruby
-  spec.add_dependency 'k8s-ruby', '~> 0.14.0'
+  # pinning k8s-ruby to 0.16.0 since it has support for Ruby version 3.2
+  spec.add_dependency 'k8s-ruby', '~> 0.16.0'
   spec.add_dependency 'train', '~> 3.0'
 end
