@@ -1,16 +1,17 @@
 # CHANGELOG
 
-<!-- latest_release 0.2.0 -->
-## [v0.2.0](https://github.com/inspec/train-kubernetes/tree/v0.2.0) (2024-02-07)
+<!-- latest_release 0.2.1 -->
+## [v0.2.1](https://github.com/inspec/train-kubernetes/tree/v0.2.1) (2024-02-13)
 
 #### Merged Pull Requests
-- CHEF-6185 Ruby 3.2.x support [#12](https://github.com/inspec/train-kubernetes/pull/12) ([Nik08](https://github.com/Nik08))
+- Fixes version bump issue [#21](https://github.com/inspec/train-kubernetes/pull/21) ([Vasu1105](https://github.com/Vasu1105))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.1.10 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- Fixes version bump issue [#21](https://github.com/inspec/train-kubernetes/pull/21) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.2.1 -->
 - CHEF-6185 Ruby 3.2.x support [#12](https://github.com/inspec/train-kubernetes/pull/12) ([Nik08](https://github.com/Nik08)) <!-- 0.2.0 -->
 - CHEF-7501 Configures SonarQube for code coverage analysis [#19](https://github.com/inspec/train-kubernetes/pull/19) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.15 -->
 - Fix the broken link for homepage in gemspec file [#16](https://github.com/inspec/train-kubernetes/pull/16) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.1.14 -->
