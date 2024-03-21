@@ -10,5 +10,5 @@ group :development do
   gem 'minitest'
   gem 'rake'
   gem 'rubocop', '~> 0.59'
-  gem "train", git: "https://github.com/inspec/train.git", branch: "bs/fix-CHEF-8031"
+  gem "train", git: "https://github.com/inspec/train.git", branch: "bs/update-train-core"
 end
