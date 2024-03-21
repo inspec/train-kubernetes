@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gemspec
+gem "train", git: "https://github.com/inspec/train.git", branch: "bs/update-train-core"
 
 # Remaining group is only used for development.
 group :development do
@@ -10,5 +11,4 @@ group :development do
   gem 'minitest'
   gem 'rake'
   gem 'rubocop', '~> 0.59'
-  gem "train", git: "https://github.com/inspec/train.git", branch: "bs/update-train-core"
 end
