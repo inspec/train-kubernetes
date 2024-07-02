@@ -1,9 +1,17 @@
 # CHANGELOG
 
-<!-- latest_release -->
+<!-- latest_release 0.2.2 -->
+## [v0.2.2](https://github.com/inspec/train-kubernetes/tree/v0.2.2) (2024-07-02)
+
+#### Merged Pull Requests
+- Upgrades Sonar scanner version [#23](https://github.com/inspec/train-kubernetes/pull/23) ([Vasu1105](https://github.com/Vasu1105))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=0.2.1 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- Upgrades Sonar scanner version [#23](https://github.com/inspec/train-kubernetes/pull/23) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.2.2 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
