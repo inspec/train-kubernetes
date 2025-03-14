@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/inspec/train-kubernetes'
   spec.license       = 'Apache-2.0'
 
-  spec.required_ruby_version = '>= 3.1'
+  spec.required_ruby_version = '>= 3.2'
 
   # Though complicated-looking, this is pretty standard for a gemspec.
   # It just filters what will actually be packaged in the gem (leaving
@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
   # Do not list inspec as a dependency of the train plugin.
 
   # All plugins should mention train, > 1.4
-  # pinning k8s-ruby to 0.16.0 since it has support for Ruby version 3.2
-  spec.add_dependency 'k8s-ruby', '~> 0.16.0'
+  # pinning k8s-ruby to 0.17.0 since it has support for Ruby version 3.4
+  spec.add_dependency 'k8s-ruby', '~> 0.17.0'
   spec.add_dependency 'train', '~> 3.0'
 end
