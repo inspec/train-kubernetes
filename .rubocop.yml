@@ -1,6 +1,6 @@
 ---
 AllCops:
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.0
 Layout/ParameterAlignment:
   Enabled: true
 Style/BlockDelimiters:
