@@ -3,7 +3,7 @@ require 'train-kubernetes'
 RSpec.describe 'TrainKubernetes' do
   describe 'Connection' do
     let(:options) { { pod: 'test-pod', container: 'test-container', namespace: 'test-namespace' } }
-    let(:connection) { TrainKubernetes::Connection.new(options) }
+    let(:connection) { TrainPlugins::TrainKubernetes::Connection.new(options) }
 
     it 'should connect to the Kubernetes API' do
       expect(connection.client).to be_a(K8s::Client)
