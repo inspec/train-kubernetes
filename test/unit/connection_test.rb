@@ -1,6 +1,5 @@
-require 'train-kubernetes/connection' # Adjust the path accordingly
 require_relative '../helper'
-require 'train/extras' # Ensure Train::Extras::CommandResult is available
+require 'train-kubernetes/connection'
 
 # Mock KubectlClient if it's not required from another file
 class KubectlClient
@@ -52,16 +51,5 @@ class TestTrainKubernetesConnection < Minitest::Test
   def test_parse_kubeconfig
     assert_equal @mock_client, @connection.client
   end
-
-  # def test_run_command_via_connection
-  #   mock_kubectl = mock('KubectlClient')
-  #   mock_result = Train::Extras::CommandResult.new("file1\nfile2", '', 0)
-
-  #   # Mock the KubectlClient.new method to return the mock_kubectl instance
-  #   KubectlClient.stubs(:new).returns(mock_kubectl)
-  #   mock_kubectl.expects(:execute).with('ls').returns(mock_result)
-  #   result = @connection.send(:run_command_via_connection, 'ls')
-  #   assert_equal "file1\nfile2", result.stdout
-  # end
 
 end

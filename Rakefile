@@ -9,7 +9,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 # run tests
 desc 'default checks'
-task default: [:lint]
+task default: %i{test:unit}
 
 # Rubocop
 desc 'Run Rubocop lint checks'
@@ -47,4 +47,3 @@ namespace :test do
     end
   end
 end
-task default: :spec

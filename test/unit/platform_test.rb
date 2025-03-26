@@ -1,28 +1,28 @@
-require 'train-kubernetes'
+require_relative '../helper'
+require 'train-kubernetes/platform'
+require 'train-kubernetes/version'
 
-RSpec.describe 'TrainKubernetes' do
-  describe 'components' do
-    it 'should require the platform file' do
-      expect { require 'train-kubernetes/platform' }.not_to raise_error
+
+module TrainPlugins
+  module TrainKubernetes
+    class TestClass
+      include Platform
     end
   end
+end
 
-  describe 'Platform' do
-    include TrainKubernetes::Platform
+class TestTrainKubernetesPlatform < Minitest::Test
+  def setup
+    @test_instance = TrainPlugins::TrainKubernetes::TestClass.new
+  end
 
-    it 'should define the platform method' do
-      expect(self).to respond_to(:platform)
-    end
+  def test_platform
+    platform_mock = mock('platform')
+    platform_mock.expects(:in_family).with('cloud').returns(true)
 
-    it 'should set the correct platform name and family' do
-      expect(Train::Platforms).to receive(:name).with('k8s').and_return(Train::Platforms)
-      expect(Train::Platforms).to receive(:in_family).with('cloud').and_return(Train::Platforms)
-      platform
-    end
+    Train::Platforms.expects(:name).with('k8s').returns(platform_mock)
+    @test_instance.expects(:force_platform!).with('k8s', release: TrainPlugins::TrainKubernetes::VERSION).returns(true)
 
-    it 'should force the correct platform with the version' do
-      expect(self).to receive(:force_platform!).with('k8s', release: TrainPlugins::TrainKubernetes::VERSION)
-      platform
-    end
+    assert @test_instance.platform
   end
 end

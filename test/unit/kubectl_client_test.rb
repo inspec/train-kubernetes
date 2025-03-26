@@ -1,47 +1,71 @@
-require 'train-kubernetes'
+require_relative '../helper'
+require 'mixlib/shellout'
+require 'train-kubernetes/kubectl_client'
 
-RSpec.describe 'TrainKubernetes' do
-  describe 'KubectlClient' do
-    let(:pod) { 'my-pod' }
-    let(:namespace) { 'my-namespace' }
-    let(:container) { 'my-container' }
-    let(:client) { TrainKubernetes::KubectlClient.new(pod: pod, namespace: namespace, container: container) }
+class TestKubectlClient < Minitest::Test
+  def setup
+    @pod = 'mock-pod'
+    @namespace = 'mock-namespace'
+    @container = 'mock-container'
+    @kubectl_client = TrainPlugins::TrainKubernetes::KubectlClient.new(pod: @pod, namespace: @namespace, container: @container)
+  end
 
-    describe '#initialize' do
-      it 'sets the pod, container, and namespace' do
-        expect(client.pod).to eq(pod)
-        expect(client.container).to eq(container)
-        expect(client.namespace).to eq(namespace)
-      end
+  def test_initialize
+    assert_equal @pod, @kubectl_client.pod
+    assert_equal @namespace, @kubectl_client.namespace
+    assert_equal @container, @kubectl_client.container
+  end
 
-      it 'sets the default namespace if not provided' do
-        client = TrainKubernetes::KubectlClient.new(pod: pod)
-        expect(client.namespace).to eq(TrainKubernetes::KubectlClient::DEFAULT_NAMESPACE)
-      end
-    end
+  def test_execute_success
+    mock_shell = mock('Mixlib::ShellOut')
+    mock_shell.stubs(:run_command).returns(mock_shell)
+    mock_shell.stubs(:stdout).returns("command output")
+    mock_shell.stubs(:stderr).returns("")
+    mock_shell.stubs(:exitstatus).returns(0)
 
-    describe '#execute' do
-      it 'executes the command and returns the command result' do
-        command = 'echo "Hello, World!"'
-        shell_out = double('shell_out')
-        expect(Mixlib::ShellOut).to receive(:new).and_return(shell_out)
-        expect(shell_out).to receive(:run_command)
+    Mixlib::ShellOut.stubs(:new).returns(mock_shell)
 
-        result = double('command_result')
-        expect(Train::Extras::CommandResult).to receive(:new).and_return(result)
+    result = @kubectl_client.execute('ls')
+    assert_equal "command output", result.stdout
+    assert_equal "", result.stderr
+    assert_equal 0, result.exit_status
+  end
 
-        expect(client.execute(command)).to eq(result)
-      end
+  def test_execute_failure
+    mock_shell = mock('Mixlib::ShellOut')
+    mock_shell.stubs(:run_command).returns(mock_shell)
+    mock_shell.stubs(:stdout).returns("")
+    mock_shell.stubs(:stderr).returns("Error executing command")
+    mock_shell.stubs(:exitstatus).returns(1)
 
-      it 'returns an empty command result if the command fails' do
-        command = 'invalid-command'
-        expect(Mixlib::ShellOut).to receive(:new).and_raise(Errno::ENOENT)
+    Mixlib::ShellOut.stubs(:new).returns(mock_shell)
 
-        result = double('command_result')
-        expect(Train::Extras::CommandResult).to receive(:new).and_return(result)
+    result = @kubectl_client.execute('ls')
+    assert_equal "", result.stdout
+    assert_equal "Error executing command", result.stderr
+    assert_equal 1, result.exit_status
+  end
 
-        expect(client.execute(command)).to eq(result)
-      end
-    end
+  def test_execute_pod_not_found
+    mock_shell = mock('Mixlib::ShellOut')
+    mock_shell.stubs(:run_command).returns(mock_shell)
+    mock_shell.stubs(:stdout).returns("")
+    mock_shell.stubs(:stderr).returns("Error from server (NotFound): pods \"#{@pod}\" not found")
+    mock_shell.stubs(:exitstatus).returns(1)
+
+    Mixlib::ShellOut.stubs(:new).returns(mock_shell)
+
+    result = @kubectl_client.execute('ls')
+    assert_match /Error from server \(NotFound\): pods \"#{@pod}\" not found/, result.stderr
+    assert_equal 1, result.exit_status
+  end
+
+  def test_execute_with_no_kubectl
+    Mixlib::ShellOut.stubs(:new).raises(Errno::ENOENT)
+
+    result = @kubectl_client.execute('ls')
+    assert_equal "", result.stdout
+    assert_equal "", result.stderr
+    assert_equal 1, result.exit_status
   end
 end

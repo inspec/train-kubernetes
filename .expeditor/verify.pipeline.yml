@@ -21,7 +21,7 @@ steps:
 
 - label: run-specs-ruby-3.1
   command:
-    - /workdir/.expeditor/run_linux_tests.sh "rake spec"
+    - /workdir/.expeditor/run_linux_tests.sh "rake"
   expeditor:
     executor:
       docker:
@@ -29,7 +29,7 @@ steps:
 
 - label: run-specs-ruby-3.2
   command:
-    - /workdir/.expeditor/run_linux_tests.sh "rake spec"
+    - /workdir/.expeditor/run_linux_tests.sh "rake"
   expeditor:
     executor:
       docker:
@@ -37,7 +37,7 @@ steps:
 
 - label: run-specs-ruby-3.3
   command:
-    - /workdir/.expeditor/run_linux_tests.sh "rake spec"
+    - /workdir/.expeditor/run_linux_tests.sh "rake"
   expeditor:
     executor:
       docker:
