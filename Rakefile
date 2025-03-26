@@ -34,4 +34,17 @@ rescue LoadError
   puts '>>>>> GitHub Changelog Generator not loaded, omitting tasks'
 end
 
+namespace :test do
+{
+    unit: "test/unit/*_test.rb",
+  }.each do |task_name, glob|
+    Rake::TestTask.new(task_name) do |t|
+      t.libs.push "lib"
+      t.libs.push "test"
+      t.test_files = FileList[glob]
+      t.verbose = true
+      t.warning = false
+    end
+  end
+end
 task default: :spec
