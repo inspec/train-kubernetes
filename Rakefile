@@ -36,7 +36,7 @@ end
 
 namespace :test do
 {
-    unit: "test/unit/*_test.rb",
+    unit: "test/unit/**/*_test.rb",
   }.each do |task_name, glob|
     Rake::TestTask.new(task_name) do |t|
       t.libs.push "lib"
