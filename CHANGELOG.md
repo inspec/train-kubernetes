@@ -1,16 +1,18 @@
 # CHANGELOG
 
-<!-- latest_release 0.2.3 -->
-## [v0.2.3](https://github.com/inspec/train-kubernetes/tree/v0.2.3) (2024-07-02)
+<!-- latest_release 0.2.5 -->
+## [v0.2.5](https://github.com/inspec/train-kubernetes/tree/v0.2.5) (2025-03-27)
 
 #### Merged Pull Requests
-- add support for ruby 3.3 tests [#22](https://github.com/inspec/train-kubernetes/pull/22) ([sathish-progress](https://github.com/sathish-progress))
+- CHEF-20409-Added Unit testcases [#27](https://github.com/inspec/train-kubernetes/pull/27) ([Nik08](https://github.com/Nik08))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.2.1 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- CHEF-20409-Added Unit testcases [#27](https://github.com/inspec/train-kubernetes/pull/27) ([Nik08](https://github.com/Nik08)) <!-- 0.2.5 -->
+- Update inspec version  [#26](https://github.com/inspec/train-kubernetes/pull/26) ([balasubramanian-s](https://github.com/balasubramanian-s)) <!-- 0.2.4 -->
 - add support for ruby 3.3 tests [#22](https://github.com/inspec/train-kubernetes/pull/22) ([sathish-progress](https://github.com/sathish-progress)) <!-- 0.2.3 -->
 - Upgrades Sonar scanner version [#23](https://github.com/inspec/train-kubernetes/pull/23) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.2.2 -->
 <!-- release_rollup -->
