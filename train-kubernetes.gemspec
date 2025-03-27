@@ -5,24 +5,24 @@
 # It is traditional in a gemspec to dynamically load the current version
 # from a file in the source tree.  The next three lines make that happen.
 # lib = File.expand_path('../lib', __FILE__)
-lib = File.expand_path('lib', __dir__)
+lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'train-kubernetes/version'
+require "train-kubernetes/version"
 
 Gem::Specification.new do |spec|
   # Importantly, all Train plugins must be prefixed with `train-`
-  spec.name          = 'train-kubernetes'
+  spec.name          = "train-kubernetes"
 
   # It is polite to namespace your plugin under TrainPlugins::YourPluginInCamelCase
   spec.version       = TrainPlugins::TrainKubernetes::VERSION
-  spec.authors       = ['Brad Geesaman']
-  spec.email         = ['bradgeesaman@gmail.com']
-  spec.summary       = 'Train Kubernetes'
+  spec.authors       = ["Brad Geesaman"]
+  spec.email         = ["bradgeesaman@gmail.com"]
+  spec.summary       = "Train Kubernetes"
   spec.description   = 'A Train "transport" plugin for Chef Inspec that allows testing of all Kubernetes API resources'
-  spec.homepage      = 'https://github.com/inspec/train-kubernetes'
-  spec.license       = 'Apache-2.0'
+  spec.homepage      = "https://github.com/inspec/train-kubernetes"
+  spec.license       = "Apache-2.0"
 
-  spec.required_ruby_version = '>= 3.1'
+  spec.required_ruby_version = ">= 3.1"
 
   # Though complicated-looking, this is pretty standard for a gemspec.
   # It just filters what will actually be packaged in the gem (leaving
@@ -30,9 +30,9 @@ Gem::Specification.new do |spec|
   spec.files = %w{
     README.md train-kubernetes.gemspec Gemfile
   } + Dir.glob(
-    'lib/**/*', File::FNM_DOTMATCH
+    "lib/**/*", File::FNM_DOTMATCH
   ).reject { |f| File.directory?(f) }
-  spec.require_paths = ['lib']
+  spec.require_paths = ["lib"]
 
   # If you rely on any other gems, list them here with any constraints.
   # This is how `inspec plugin install` is able to manage your dependencies.
@@ -45,6 +45,6 @@ Gem::Specification.new do |spec|
 
   # All plugins should mention train, > 1.4
   # pinning k8s-ruby to 0.16.0 since it has support for Ruby version 3.2
-  spec.add_dependency 'k8s-ruby', '~> 0.16.0'
-  spec.add_dependency 'train', '~> 3.0'
+  spec.add_dependency "k8s-ruby", "~> 0.16.0"
+  spec.add_dependency "train", "~> 3.0"
 end

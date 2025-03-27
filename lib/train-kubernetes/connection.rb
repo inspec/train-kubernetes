@@ -1,7 +1,7 @@
-require 'train'
-require 'k8s-ruby'
-require 'train-kubernetes/platform'
-require 'train-kubernetes/kubectl_client'
+require "train"
+require "k8s-ruby"
+require "train-kubernetes/platform"
+require "train-kubernetes/kubectl_client"
 
 module TrainPlugins
   module TrainKubernetes
@@ -10,7 +10,7 @@ module TrainPlugins
 
       def initialize(options)
         super(options)
-        @pod = options[:pod] || options[:path]&.gsub('/', '')
+        @pod = options[:pod] || options[:path]&.gsub("/", "")
         @container = options[:container]
         @namespace = options[:namespace] || options[:host]
         parse_kubeconfig
@@ -31,7 +31,7 @@ module TrainPlugins
       end
 
       def unique_identifier
-        @client.transport.server.gsub(%r{(http|https)\:\/\/}, '') || 'default'
+        @client.transport.server.gsub(%r{(http|https)\:\/\/}, "") || "default"
       end
 
       def parse_kubeconfig
@@ -47,7 +47,7 @@ module TrainPlugins
         KubectlClient.new(pod: opts[:pod] || pod,
                           container: opts[:container] || container,
                           namespace: opts[:namespace] || namespace)
-                     .execute(cmd)
+          .execute(cmd)
       end
 
       def file_via_connection(path, **args)

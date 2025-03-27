@@ -2,8 +2,7 @@ require "minitest/autorun"
 require "mocha/minitest"
 require "byebug"
 require "train"
-require 'train/extras'
-
+require "train/extras"
 
 module Minitest
   class Test

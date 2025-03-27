@@ -1,10 +1,10 @@
-require 'train-kubernetes/connection'
+require "train-kubernetes/connection"
 
 module TrainPlugins
   module TrainKubernetes
     class Transport < Train.plugin(1)
-      name 'k8s'
-      option :kubeconfig, default: ENV['KUBECONFIG'] || '~/.kube/config'
+      name "k8s"
+      option :kubeconfig, default: ENV["KUBECONFIG"] || "~/.kube/config"
       option :pod, default: nil
       option :container, default: nil
       option :namespace, default: nil
