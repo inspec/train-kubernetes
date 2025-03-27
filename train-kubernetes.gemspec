@@ -45,6 +45,6 @@ Gem::Specification.new do |spec|
 
   # All plugins should mention train, > 1.4
   # pinning k8s-ruby to 0.17.0 since it has support for Ruby version 3.4
-  spec.add_dependency 'k8s-ruby', '~> 0.17.0'
-  spec.add_dependency 'train', '~> 3.0'
+  spec.add_dependency "k8s-ruby", "~> 0.17.0"
+  spec.add_dependency "train", "~> 3.0"
 end

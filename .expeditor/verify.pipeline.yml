@@ -43,9 +43,9 @@ steps:
       docker:
         image: ruby:3.3
 
-- label: run-specs-ruby-3.4
+- label: run-tests-ruby-3.4
   command:
-    - /workdir/.expeditor/run_linux_tests.sh "rake spec"
+    - /workdir/.expeditor/run_linux_tests.sh "rake"
   expeditor:
     executor:
       docker:
