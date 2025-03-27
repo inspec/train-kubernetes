@@ -13,4 +13,6 @@ group :development do
   gem "m"
   gem "rubocop", "~> 0.59"
   gem "chefstyle"
+  gem "simplecov"
+  gem "simplecov_json_formatter"
 end

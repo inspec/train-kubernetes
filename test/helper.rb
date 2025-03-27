@@ -1,3 +1,13 @@
+if ENV["CI_ENABLE_COVERAGE"]
+  require "simplecov/no_defaults"
+  require_relative "helpers/simplecov_minitest"
+  SimpleCov.start do
+    add_filter "/test/"
+    add_group "Resources", ["lib/train-kubernetes"]
+  end
+end
+
+
 require "minitest/autorun"
 require "mocha/minitest"
 require "byebug"

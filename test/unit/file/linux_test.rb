@@ -11,7 +11,6 @@ class TestLinuxFile < Minitest::Test
     @linux_file = TrainPlugins::TrainKubernetes::File::Linux.new(
       @backend,
       "/mock/path",
-      true,
       pod: "mock-pod",
       namespace: "mock-namespace",
       container: "mock-container",
