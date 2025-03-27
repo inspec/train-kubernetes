@@ -15,4 +15,5 @@ group :development do
   gem "chefstyle"
   gem "simplecov"
   gem "simplecov_json_formatter"
+  gem 'github_changelog_generator'
 end
