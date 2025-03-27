@@ -42,5 +42,5 @@ loop do
   end
   config_path, = config_path.split
   break if config_path.root?
-end# frozen_string_literal: true
+end
 

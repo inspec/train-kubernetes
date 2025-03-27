@@ -56,7 +56,7 @@ class TestKubectlClient < Minitest::Test
     Mixlib::ShellOut.stubs(:new).returns(mock_shell)
 
     result = @kubectl_client.execute("ls")
-    assert_match /Error from server \(NotFound\): pods \"#{@pod}\" not found/, result.stderr
+    assert_match(/Error from server \(NotFound\): pods \"#{@pod}\" not found/, result.stderr)
     assert_equal 1, result.exit_status
   end
 

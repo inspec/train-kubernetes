@@ -7,7 +7,6 @@ if ENV["CI_ENABLE_COVERAGE"]
   end
 end
 
-
 require "minitest/autorun"
 require "mocha/minitest"
 require "byebug"
