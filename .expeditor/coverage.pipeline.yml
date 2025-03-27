@@ -11,7 +11,7 @@ steps:
 
   - label: coverage-ruby-3.1
     command:
-      - CI_ENABLE_COVERAGE=1 /workdir/.expeditor/run_linux_tests.sh "rake spec"
+      - CI_ENABLE_COVERAGE=1 /workdir/.expeditor/run_linux_tests.sh "rake"
     expeditor:
       secrets: true
       executor:

@@ -1,12 +1,12 @@
-require 'mixlib/shellout'
-require 'train/extras'
+require "mixlib/shellout" unless defined?(Mixlib::ShellOut)
+require "train/extras"
 
 module TrainPlugins
   module TrainKubernetes
     class KubectlClient
       attr_reader :pod, :container, :namespace
 
-      DEFAULT_NAMESPACE = 'default'.freeze
+      DEFAULT_NAMESPACE = "default".freeze
 
       def initialize(pod:, namespace: nil, container: nil)
         @pod = pod
@@ -20,7 +20,7 @@ module TrainPlugins
         res = shell.run_command
         Train::Extras::CommandResult.new(res.stdout, res.stderr, res.exitstatus)
       rescue Errno::ENOENT => _e
-        Train::Extras::CommandResult.new('', '', 1)
+        Train::Extras::CommandResult.new("", "", 1)
       end
 
       private
@@ -30,12 +30,12 @@ module TrainPlugins
       end
 
       def build_instruction(command, stdin, _tty)
-        ['kubectl exec'].tap do |arr|
-          arr << '--stdin' if stdin
+        ["kubectl exec"].tap do |arr|
+          arr << "--stdin" if stdin
           arr << pod if pod
-          arr << '-n'
+          arr << "-n"
           arr << namespace
-          arr << '--'
+          arr << "--"
           arr << command
         end.join("\s")
       end
