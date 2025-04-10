@@ -11,7 +11,7 @@ group :development do
   gem "mocha"
   gem "rake"
   gem "m"
-  gem "rubocop", "~> 0.59"
+  gem "rubocop"
   gem "chefstyle"
   gem "simplecov"
   gem "simplecov_json_formatter"
