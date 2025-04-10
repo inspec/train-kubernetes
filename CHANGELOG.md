@@ -1,16 +1,17 @@
 # CHANGELOG
 
-<!-- latest_release 0.3.0 -->
-## [v0.3.0](https://github.com/inspec/train-kubernetes/tree/v0.3.0) (2025-03-28)
+<!-- latest_release 0.3.1 -->
+## [v0.3.1](https://github.com/inspec/train-kubernetes/tree/v0.3.1) (2025-04-10)
 
 #### Merged Pull Requests
-- CHEF-18370-Ruby3.4.x support [#25](https://github.com/inspec/train-kubernetes/pull/25) ([balasubramanian-s](https://github.com/balasubramanian-s))
+- bump up k8s-ruby [#29](https://github.com/inspec/train-kubernetes/pull/29) ([sathish-progress](https://github.com/sathish-progress))
 <!-- latest_release -->
 
 <!-- release_rollup since=0.2.1 -->
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- bump up k8s-ruby [#29](https://github.com/inspec/train-kubernetes/pull/29) ([sathish-progress](https://github.com/sathish-progress)) <!-- 0.3.1 -->
 - CHEF-18370-Ruby3.4.x support [#25](https://github.com/inspec/train-kubernetes/pull/25) ([balasubramanian-s](https://github.com/balasubramanian-s)) <!-- 0.3.0 -->
 - CHEF-20409-Added Unit testcases [#27](https://github.com/inspec/train-kubernetes/pull/27) ([Nik08](https://github.com/Nik08)) <!-- 0.2.5 -->
 - Update inspec version  [#26](https://github.com/inspec/train-kubernetes/pull/26) ([balasubramanian-s](https://github.com/balasubramanian-s)) <!-- 0.2.4 -->
