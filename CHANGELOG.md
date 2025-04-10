@@ -1,25 +1,23 @@
 # CHANGELOG
 
-<!-- latest_release 0.3.1 -->
-## [v0.3.1](https://github.com/inspec/train-kubernetes/tree/v0.3.1) (2025-04-10)
-
-#### Merged Pull Requests
-- bump up k8s-ruby [#29](https://github.com/inspec/train-kubernetes/pull/29) ([sathish-progress](https://github.com/sathish-progress))
+<!-- latest_release -->
 <!-- latest_release -->
 
-<!-- release_rollup since=0.2.1 -->
-### Changes not yet released to rubygems.org
-
-#### Merged Pull Requests
-- bump up k8s-ruby [#29](https://github.com/inspec/train-kubernetes/pull/29) ([sathish-progress](https://github.com/sathish-progress)) <!-- 0.3.1 -->
-- CHEF-18370-Ruby3.4.x support [#25](https://github.com/inspec/train-kubernetes/pull/25) ([balasubramanian-s](https://github.com/balasubramanian-s)) <!-- 0.3.0 -->
-- CHEF-20409-Added Unit testcases [#27](https://github.com/inspec/train-kubernetes/pull/27) ([Nik08](https://github.com/Nik08)) <!-- 0.2.5 -->
-- Update inspec version  [#26](https://github.com/inspec/train-kubernetes/pull/26) ([balasubramanian-s](https://github.com/balasubramanian-s)) <!-- 0.2.4 -->
-- add support for ruby 3.3 tests [#22](https://github.com/inspec/train-kubernetes/pull/22) ([sathish-progress](https://github.com/sathish-progress)) <!-- 0.2.3 -->
-- Upgrades Sonar scanner version [#23](https://github.com/inspec/train-kubernetes/pull/23) ([Vasu1105](https://github.com/Vasu1105)) <!-- 0.2.2 -->
+<!-- release_rollup -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
+## [v0.3.1](https://github.com/inspec/train-kubernetes/tree/v0.3.1) (2025-04-10)
+
+#### Merged Pull Requests
+- Upgrades Sonar scanner version [#23](https://github.com/inspec/train-kubernetes/pull/23) ([Vasu1105](https://github.com/Vasu1105))
+- add support for ruby 3.3 tests [#22](https://github.com/inspec/train-kubernetes/pull/22) ([sathish-progress](https://github.com/sathish-progress))
+- Update inspec version  [#26](https://github.com/inspec/train-kubernetes/pull/26) ([balasubramanian-s](https://github.com/balasubramanian-s))
+- CHEF-20409-Added Unit testcases [#27](https://github.com/inspec/train-kubernetes/pull/27) ([Nik08](https://github.com/Nik08))
+- CHEF-18370-Ruby3.4.x support [#25](https://github.com/inspec/train-kubernetes/pull/25) ([balasubramanian-s](https://github.com/balasubramanian-s))
+- bump up k8s-ruby [#29](https://github.com/inspec/train-kubernetes/pull/29) ([sathish-progress](https://github.com/sathish-progress))
+<!-- latest_stable_release -->
+
 ## [v0.2.1](https://github.com/inspec/train-kubernetes/tree/v0.2.1) (2024-02-13)
 
 #### Merged Pull Requests
@@ -32,7 +30,6 @@
 - CHEF-7501 Configures SonarQube for code coverage analysis [#19](https://github.com/inspec/train-kubernetes/pull/19) ([Vasu1105](https://github.com/Vasu1105))
 - CHEF-6185 Ruby 3.2.x support [#12](https://github.com/inspec/train-kubernetes/pull/12) ([Nik08](https://github.com/Nik08))
 - Fixes version bump issue [#21](https://github.com/inspec/train-kubernetes/pull/21) ([Vasu1105](https://github.com/Vasu1105))
-<!-- latest_stable_release -->
 
 ## [v0.1.10](https://github.com/inspec/train-kubernetes/tree/v0.1.10) (2022-11-15)
 
