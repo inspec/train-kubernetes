@@ -1,9 +1,17 @@
 # CHANGELOG
 
-<!-- latest_release -->
+<!-- latest_release 0.3.2 -->
+## [v0.3.2](https://github.com/inspec/train-kubernetes/tree/v0.3.2) (2025-07-22)
+
+#### Merged Pull Requests
+- CHEF-21404 Enable CI for trufflelog scanning [#30](https://github.com/inspec/train-kubernetes/pull/30) ([Nik08](https://github.com/Nik08))
 <!-- latest_release -->
 
-<!-- release_rollup -->
+<!-- release_rollup since=0.3.1 -->
+### Changes not yet released to rubygems.org
+
+#### Merged Pull Requests
+- CHEF-21404 Enable CI for trufflelog scanning [#30](https://github.com/inspec/train-kubernetes/pull/30) ([Nik08](https://github.com/Nik08)) <!-- 0.3.2 -->
 <!-- release_rollup -->
 
 <!-- latest_stable_release -->
