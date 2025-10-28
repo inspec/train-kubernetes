@@ -1,7 +1,7 @@
-require "train"
-require "k8s-ruby"
-require "train-kubernetes/platform"
-require "train-kubernetes/kubectl_client"
+require 'train'
+require 'k8s-ruby'
+require 'train-kubernetes/platform'
+require 'train-kubernetes/kubectl_client'
 
 module TrainPlugins
   module TrainKubernetes
@@ -10,7 +10,7 @@ module TrainPlugins
 
       def initialize(options)
         super(options)
-        @pod = options[:pod] || options[:path]&.gsub("/", "")
+        @pod = options[:pod] || options[:path]&.gsub('/', '')
         @container = options[:container]
         @namespace = options[:namespace] || options[:host]
         parse_kubeconfig
@@ -31,12 +31,34 @@ module TrainPlugins
       end
 
       def unique_identifier
-        @client.transport.server.gsub(%r{(http|https)\:\/\/}, "") || "default"
+        @client.transport.server.gsub(%r{(http|https)\:\/\/}, '') || 'default'
       end
 
       def parse_kubeconfig
-        kubeconfig_file = @options[:kubeconfig] if @options[:kubeconfig]
-        @client = K8s::Client.config(K8s::Config.load_file(::File.expand_path(kubeconfig_file)))
+        # Validate that kubeconfig option is provided
+        unless @options[:kubeconfig]
+          raise Train::UserError, 'No kubeconfig file specified. Please provide a kubeconfig path.'
+        end
+
+        kubeconfig_file = @options[:kubeconfig]
+        expanded_path = ::File.expand_path(kubeconfig_file)
+
+        # Check if the file exists
+        unless ::File.exist?(expanded_path)
+          raise Train::UserError, "Kubeconfig file not found at '#{kubeconfig_file}'. Please check the path and try again."
+        end
+
+        # Load and parse the kubeconfig with proper error handling
+        @client = K8s::Client.config(K8s::Config.load_file(expanded_path))
+      rescue Psych::SyntaxError => e
+        raise Train::UserError, "Invalid YAML syntax in kubeconfig file '#{kubeconfig_file}': #{e.message}"
+      rescue K8s::Error => e
+        raise Train::UserError, "Invalid kubeconfig file '#{kubeconfig_file}': #{e.message}"
+      rescue StandardError => e
+        # Don't catch Train::UserError again
+        raise if e.is_a?(Train::UserError)
+
+        raise Train::UserError, "Failed to load kubeconfig file '#{kubeconfig_file}': #{e.message}"
       end
 
       private
@@ -47,7 +69,7 @@ module TrainPlugins
         KubectlClient.new(pod: opts[:pod] || pod,
                           container: opts[:container] || container,
                           namespace: opts[:namespace] || namespace)
-          .execute(cmd)
+                     .execute(cmd)
       end
 
       def file_via_connection(path, **args)
