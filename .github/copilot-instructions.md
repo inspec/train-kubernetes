@@ -523,7 +523,7 @@ Train-Kubernetes uses **Minitest** as its testing framework with the following s
 - **Framework**: Minitest (configured in `test/helper.rb`)
 - **Mocking**: Mocha for mocking and stubbing
 - **Coverage**: SimpleCov for code coverage reporting
-- **Style**: Uses `describe` and `it` blocks (Minitest spec syntax)
+- **Style**: Both Minitest spec (`describe`/`it`) and classic class-based (`class ... < Minitest::Test`) styles are acceptable. Examples may use either style.
 
 ### Unit Testing with Minitest
 
