@@ -207,7 +207,11 @@ Before creating PR:
    ```bash
    rake lint
    ```
-2. **Fix violations**: Address all RuboCop violations
+2. **Fix violations**: Auto-correct RuboCop violations using:
+   ```bash
+   rake lint:auto_correct
+   ```
+   Note: Use `rake lint:auto_correct` (NOT `bundle exec rubocop -A`) to ensure consistency with project standards.
 3. **Run style check**: Run style checks
    ```bash
    rake style
