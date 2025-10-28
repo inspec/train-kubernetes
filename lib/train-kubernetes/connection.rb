@@ -35,8 +35,29 @@ module TrainPlugins
       end
 
       def parse_kubeconfig
-        kubeconfig_file = @options[:kubeconfig] if @options[:kubeconfig]
-        @client = K8s::Client.config(K8s::Config.load_file(::File.expand_path(kubeconfig_file)))
+        # Validate that kubeconfig option is provided
+        unless @options[:kubeconfig]
+          raise Train::UserError, "No kubeconfig file specified. Please provide a kubeconfig path using the 'kubeconfig' option."
+        end
+
+        kubeconfig_file = ::File.expand_path(@options[:kubeconfig])
+
+        # Check if the kubeconfig file exists
+        unless ::File.exist?(kubeconfig_file)
+          raise Train::UserError, "Kubeconfig file not found at '#{kubeconfig_file}'. Please verify the path and try again."
+        end
+
+        # Attempt to load and parse the kubeconfig file
+        begin
+          config = K8s::Config.load_file(kubeconfig_file)
+          @client = K8s::Client.config(config)
+        rescue Psych::SyntaxError => e
+          raise Train::UserError, "Invalid YAML syntax in kubeconfig file '#{kubeconfig_file}': #{e.message}"
+        rescue K8s::Error => e
+          raise Train::UserError, "Invalid kubeconfig file '#{kubeconfig_file}': #{e.message}"
+        rescue StandardError => e
+          raise Train::UserError, "Failed to load kubeconfig file '#{kubeconfig_file}': #{e.message}"
+        end
       end
 
       private
