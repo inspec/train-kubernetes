@@ -34,9 +34,50 @@ module TrainPlugins
         @client.transport.server.gsub(%r{(http|https)\:\/\/}, "") || "default"
       end
 
+      # Parse and validate the kubeconfig file
+      #
+      # This method loads the Kubernetes configuration from the specified kubeconfig file,
+      # validates its existence and format, and creates a K8s client from the configuration.
+      #
+      # @raise [Train::UserError] if kubeconfig is not specified
+      # @raise [Train::UserError] if kubeconfig file does not exist
+      # @raise [Train::UserError] if kubeconfig has invalid YAML syntax
+      # @raise [Train::UserError] if kubeconfig has invalid Kubernetes configuration
+      # @raise [Train::UserError] if kubeconfig fails to load for any other reason
+      #
+      # @return [void]
+      #
+      # @example Error messages
+      #   "No kubeconfig file specified. Please provide a kubeconfig path."
+      #   "Kubeconfig file not found at '/path/to/config'. Please check the path and try again."
+      #   "Invalid YAML syntax in kubeconfig file '/path/to/config': <error details>"
+      #   "Invalid kubeconfig file '/path/to/config': <error details>"
+      #
       def parse_kubeconfig
         kubeconfig_file = @options[:kubeconfig] if @options[:kubeconfig]
-        @client = K8s::Client.config(K8s::Config.load_file(::File.expand_path(kubeconfig_file)))
+
+        # Validate kubeconfig file exists
+        unless kubeconfig_file
+          raise Train::UserError, "No kubeconfig file specified. Please provide a kubeconfig path."
+        end
+
+        expanded_path = ::File.expand_path(kubeconfig_file)
+
+        unless ::File.exist?(expanded_path)
+          raise Train::UserError, "Kubeconfig file not found at '#{expanded_path}'. Please check the path and try again."
+        end
+
+        # Attempt to load and parse the kubeconfig
+        begin
+          config = K8s::Config.load_file(expanded_path)
+          @client = K8s::Client.config(config)
+        rescue Psych::SyntaxError => e
+          raise Train::UserError, "Invalid YAML syntax in kubeconfig file '#{expanded_path}': #{e.message}"
+        rescue K8s::Error => e
+          raise Train::UserError, "Invalid kubeconfig file '#{expanded_path}': #{e.message}"
+        rescue StandardError => e
+          raise Train::UserError, "Failed to load kubeconfig from '#{expanded_path}': #{e.message}"
+        end
       end
 
       private
