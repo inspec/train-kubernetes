@@ -429,6 +429,21 @@ Use this format after each phase:
 - Server type: `http`
 - Configuration file: `.vscode/mcp.json`
 
+> **Note:** The `.vscode/mcp.json` configuration file is not included in the repository by default. You must create this file yourself in the `.vscode` directory of your local repository.
+>
+> **Example `.vscode/mcp.json` configuration:**
+> ```json
+> {
+>   "serverUrl": "https://mcp.atlassian.com/v1/sse",
+>   "serverType": "http",
+>   "auth": {
+>     "username": "your-username",
+>     "apiToken": "your-api-token"
+>   }
+> }
+> ```
+>
+> Replace `"your-username"` and `"your-api-token"` with your actual Atlassian credentials.
 When working with Jira tickets:
 1. Use the **atlassian-mcp-server** MCP server for Jira integration
 2. Fetch issue details using the appropriate MCP tools
