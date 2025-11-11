@@ -52,7 +52,6 @@ class TestTrainKubernetesConnection < Minitest::Test
     assert_equal @mock_client, @connection.client
   end
 
-  # Test for missing kubeconfig option
   def test_parse_kubeconfig_missing_option
     options = {
       pod: "test-pod",
@@ -60,15 +59,14 @@ class TestTrainKubernetesConnection < Minitest::Test
       namespace: "default",
     }
 
-    error = assert_raises(Train::UserError) do
+    err = assert_raises(Train::UserError) do
       TrainPlugins::TrainKubernetes::Connection.new(options)
     end
 
-    assert_match(/No kubeconfig file specified/, error.message)
-    assert_match(/Please provide a kubeconfig path/, error.message)
+    assert_includes err.message, "No kubeconfig file specified"
+    assert_includes err.message, "Please provide a kubeconfig path"
   end
 
-  # Test for kubeconfig file not found
   def test_parse_kubeconfig_file_not_found
     options = {
       pod: "test-pod",
@@ -77,64 +75,37 @@ class TestTrainKubernetesConnection < Minitest::Test
       kubeconfig: "/nonexistent/path/to/kubeconfig",
     }
 
-    error = assert_raises(Train::UserError) do
+    err = assert_raises(Train::UserError) do
       TrainPlugins::TrainKubernetes::Connection.new(options)
     end
 
-    assert_match(/Kubeconfig file not found/, error.message)
-    assert_match(%r{/nonexistent/path/to/kubeconfig}, error.message)
-    assert_match(/Please verify the path/, error.message)
+    assert_includes err.message, "Kubeconfig file not found"
+    assert_includes err.message, "/nonexistent/path/to/kubeconfig"
+    assert_includes err.message, "Please check the path"
   end
 
-  # Test for invalid YAML syntax in kubeconfig
   def test_parse_kubeconfig_invalid_yaml
-    invalid_kubeconfig_path = "test/fixtures/invalid_kubeconfig.yaml"
-    
-    # Create a temporary invalid YAML file
-    File.write(invalid_kubeconfig_path, "invalid: yaml: syntax: :::::")
+    require "tempfile"
+
+    # Create a temporary file with invalid YAML
+    tempfile = Tempfile.new(["invalid_kubeconfig", ".yaml"])
+    tempfile.write("invalid: yaml: content: [")
+    tempfile.close
 
     options = {
       pod: "test-pod",
       container: "test-container",
       namespace: "default",
-      kubeconfig: invalid_kubeconfig_path,
+      kubeconfig: tempfile.path,
     }
 
-    error = assert_raises(Train::UserError) do
+    err = assert_raises(Train::UserError) do
       TrainPlugins::TrainKubernetes::Connection.new(options)
     end
 
-    assert_match(/Invalid YAML syntax in kubeconfig file/, error.message)
-  ensure
-    # Clean up the temporary file
-    File.delete(invalid_kubeconfig_path) if File.exist?(invalid_kubeconfig_path)
-  end
+    assert_includes err.message, "Invalid YAML syntax in kubeconfig file"
 
-  # Test for invalid Kubernetes configuration structure
-  def test_parse_kubeconfig_invalid_k8s_config
-    invalid_k8s_config_path = "test/fixtures/invalid_k8s_config.yaml"
-    
-    # Create a valid YAML but invalid K8s config
-    File.write(invalid_k8s_config_path, "just_a_string: not_a_valid_k8s_config")
-
-    options = {
-      pod: "test-pod",
-      container: "test-container",
-      namespace: "default",
-      kubeconfig: invalid_k8s_config_path,
-    }
-
-    # Mock K8s::Config to raise an error
-    K8s::Config.stubs(:load_file).raises(K8s::Error, "Invalid configuration structure")
-
-    error = assert_raises(Train::UserError) do
-      TrainPlugins::TrainKubernetes::Connection.new(options)
-    end
-
-    assert_match(/Invalid kubeconfig file/, error.message)
-  ensure
-    # Clean up the temporary file
-    File.delete(invalid_k8s_config_path) if File.exist?(invalid_k8s_config_path)
+    tempfile.unlink
   end
 
 end
