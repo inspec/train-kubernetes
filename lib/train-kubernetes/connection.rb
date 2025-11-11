@@ -34,9 +34,48 @@ module TrainPlugins
         @client.transport.server.gsub(%r{(http|https)\:\/\/}, "") || "default"
       end
 
+      # Parse and validate kubeconfig file
+      #
+      # This method validates that a kubeconfig file is provided, exists, and contains
+      # valid Kubernetes configuration. It provides clear error messages for common
+      # configuration issues.
+      #
+      # @raise [Train::UserError] if kubeconfig option is not provided
+      # @raise [Train::UserError] if kubeconfig file does not exist
+      # @raise [Train::UserError] if kubeconfig file contains invalid YAML syntax
+      # @raise [Train::UserError] if kubeconfig file contains invalid Kubernetes configuration
+      # @return [void]
+      #
+      # @example Valid kubeconfig
+      #   connection = Connection.new(kubeconfig: '~/.kube/config')
+      #
+      # @example Missing kubeconfig (raises error)
+      #   connection = Connection.new({}) # raises "No kubeconfig file specified..."
+      #
       def parse_kubeconfig
-        kubeconfig_file = @options[:kubeconfig] if @options[:kubeconfig]
-        @client = K8s::Client.config(K8s::Config.load_file(::File.expand_path(kubeconfig_file)))
+        # Validate kubeconfig option is provided
+        unless @options[:kubeconfig]
+          raise Train::UserError, "No kubeconfig file specified. Please provide a kubeconfig path using the 'kubeconfig' option."
+        end
+
+        kubeconfig_file = @options[:kubeconfig]
+        expanded_path = ::File.expand_path(kubeconfig_file)
+
+        # Validate kubeconfig file exists
+        unless ::File.exist?(expanded_path)
+          raise Train::UserError, "Kubeconfig file not found at '#{kubeconfig_file}'. Please check the path and try again."
+        end
+
+        # Load and parse kubeconfig with error handling
+        begin
+          @client = K8s::Client.config(K8s::Config.load_file(expanded_path))
+        rescue Psych::SyntaxError => e
+          raise Train::UserError, "Invalid YAML syntax in kubeconfig file '#{kubeconfig_file}': #{e.message}"
+        rescue K8s::Error => e
+          raise Train::UserError, "Invalid kubeconfig file '#{kubeconfig_file}': #{e.message}"
+        rescue StandardError => e
+          raise Train::UserError, "Failed to load kubeconfig file '#{kubeconfig_file}': #{e.message}"
+        end
       end
 
       private

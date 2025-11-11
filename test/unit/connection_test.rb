@@ -52,4 +52,60 @@ class TestTrainKubernetesConnection < Minitest::Test
     assert_equal @mock_client, @connection.client
   end
 
+  def test_parse_kubeconfig_missing_option
+    options = {
+      pod: "test-pod",
+      container: "test-container",
+      namespace: "default",
+    }
+
+    err = assert_raises(Train::UserError) do
+      TrainPlugins::TrainKubernetes::Connection.new(options)
+    end
+
+    assert_includes err.message, "No kubeconfig file specified"
+    assert_includes err.message, "Please provide a kubeconfig path"
+  end
+
+  def test_parse_kubeconfig_file_not_found
+    options = {
+      pod: "test-pod",
+      container: "test-container",
+      namespace: "default",
+      kubeconfig: "/nonexistent/path/to/kubeconfig",
+    }
+
+    err = assert_raises(Train::UserError) do
+      TrainPlugins::TrainKubernetes::Connection.new(options)
+    end
+
+    assert_includes err.message, "Kubeconfig file not found"
+    assert_includes err.message, "/nonexistent/path/to/kubeconfig"
+    assert_includes err.message, "Please check the path"
+  end
+
+  def test_parse_kubeconfig_invalid_yaml
+    require "tempfile"
+
+    # Create a temporary file with invalid YAML
+    tempfile = Tempfile.new(["invalid_kubeconfig", ".yaml"])
+    tempfile.write("invalid: yaml: content: [")
+    tempfile.close
+
+    options = {
+      pod: "test-pod",
+      container: "test-container",
+      namespace: "default",
+      kubeconfig: tempfile.path,
+    }
+
+    err = assert_raises(Train::UserError) do
+      TrainPlugins::TrainKubernetes::Connection.new(options)
+    end
+
+    assert_includes err.message, "Invalid YAML syntax in kubeconfig file"
+
+    tempfile.unlink
+  end
+
 end
