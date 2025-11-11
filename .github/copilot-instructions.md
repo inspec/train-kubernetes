@@ -229,7 +229,7 @@ Before creating PR:
 
 When creating a PR:
 
-1. **Branch naming**: Use the Jira ID as the branch name (e.g., `CHEF-27550`)
+1. **Branch naming**: Use the Jira ID as the branch name (e.g., `CHEF-12345`)
 2. **Local development**: All tasks performed on local repository
 
 3. **Git Workflow**:
@@ -244,7 +244,7 @@ When creating a PR:
    # Commit with conventional commit format
    git commit -m "feat([JIRA-ID]): [Brief description of change]"
    # Examples:
-   #   git commit -m "feat(CHEF-27550): Handle missing or invalid kubeconfig file gracefully"
+   #   git commit -m "feat(CHEF-12345): Handle missing or invalid kubeconfig file gracefully"
    #   git commit -m "fix(CHEF-12345): Correct namespace handling in kubectl client"
    #   git commit -m "docs(CHEF-67890): Update README with new authentication methods"
 
@@ -252,7 +252,22 @@ When creating a PR:
    git push origin [JIRA-ID]
    ```
 
-4. **GitHub CLI PR Creation**:
+4. **PR Title Selection**: Before creating PR, ask user to select change type:
+   ```
+   What type of change is this PR?
+   1. feat: New feature or functionality
+   2. fix: Bug fix
+   3. docs: Documentation changes
+   4. refactor: Code refactoring without functionality change
+   5. test: Adding or updating tests
+   6. chore: Maintenance tasks, dependency updates
+   7. perf: Performance improvements
+   8. style: Code style/formatting changes
+   9. ci: CI/CD pipeline changes
+   10. revert: Reverting previous changes
+   ```
+
+5. **GitHub CLI PR Creation**:
    ```bash
    # Ensure GitHub CLI is authenticated
    gh auth status
@@ -261,62 +276,99 @@ When creating a PR:
    # Set default repository (first time only)
    gh repo set-default inspec/train-kubernetes
 
-   # Create PR with markdown-formatted description
-   gh pr create \
-     --title "feat([JIRA-ID]): [Brief description]" \
-     --body "## Description
-
-This PR [brief description of what this PR does].
-
-**Jira Ticket:** [CHEF-XXXXX](https://progress-chef.atlassian.net/browse/CHEF-XXXXX)
-
-## Changes
-
-- Enhanced \`[file.rb]\` with [description]:
-  - [Specific change 1]
-  - [Specific change 2]
-  - [Specific change 3]
-
-- Added comprehensive RDoc documentation with examples
-
-- Added [N] test scenarios in \`[test_file.rb]\`:
-  - [Test scenario 1]
-  - [Test scenario 2]
-  - [Test scenario 3]
-
-## Test Results
-
-- ✅ All [N] tests passing ([X] [module] tests + [Y] other tests)
-- ✅ Code coverage: **[XX.XX]%** (exceeds 80% requirement)
-- ✅ RuboCop: 0 violations in modified files
-
-## Files Changed
-
-- \`[file1.rb]\` - [Description of changes]
-- \`[file2.rb]\` - [Description of changes]" \
-     --base main
-
-   # Add required label
-   gh pr edit --add-label "runtest:all:stable"
+   # Create PR with change type and ai-assisted label
+   gh pr create --title "{CHANGE_TYPE}: {JIRA_ID} - Brief description" --body-file pr_template.md --label "ai-assisted"
    ```
 
-5. **PR Description Best Practices**:
+   Examples:
+   - `feat: CHEF-1234 - Add kubeconfig validation and error handling`
+   - `fix: CHEF-5678 - Resolve namespace isolation in kubectl client`
+   - `docs: CHEF-9999 - Update README with authentication examples`
+
+6. **PR Description Format**: **MUST** follow this exact template format:
+   ```markdown
+   <!--- Provide a short summary of your changes in the Title above -->
+
+   ## Description
+   <!--- Describe your changes in detail, what problems does it solve? -->
+
+   [Your detailed description here]
+
+   This work was completed with AI assistance following Progress AI policies.
+
+   ## Related Issue
+   <!--- If you are suggesting a new feature or change, please create an issue first -->
+   <!--- Please link to the issue, discourse, or stackoverflow here: -->
+
+   **Jira Ticket:** [CHEF-XXXXX](https://progress-chef.atlassian.net/browse/CHEF-XXXXX)
+
+   ## Changes
+
+   - Enhanced `[file.rb]` with [description]:
+     - [Specific change 1]
+     - [Specific change 2]
+     - [Specific change 3]
+
+   - Added comprehensive RDoc documentation with examples
+
+   - Added [N] test scenarios in `[test_file.rb]`:
+     - [Test scenario 1]
+     - [Test scenario 2]
+     - [Test scenario 3]
+
+   ## Test Results
+
+   - ✅ All [N] tests passing ([X] [module] tests + [Y] other tests)
+   - ✅ Code coverage: **[XX.XX]%** (exceeds 80% requirement)
+   - ✅ RuboCop: 0 violations in modified files
+
+   ## Types of changes
+   <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
+   - [ ] Bug fix (non-breaking change which fixes an issue)
+   - [ ] New content (non-breaking change)
+   - [ ] Breaking change (a content change which would break existing functionality or processes)
+
+   ## Checklist:
+   <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
+   <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
+   - [ ] I have read the **CONTRIBUTING** document.
+
+   ## Files Changed
+
+   - `[file1.rb]` - [Description of changes]
+   - `[file2.rb]` - [Description of changes]
+   ```
+
+7. **Execute PR Creation**:
+   - Create temporary `pr_template.md` with filled template (including AI assistance statement)
+   - Run: `gh pr create --title "{CHANGE_TYPE}: {JIRA_ID} - Brief description" --body-file pr_template.md --label "ai-assisted"`
+   - Clean up temporary file
+   - **Always use exact template format** - never modify structure
+
+8. **PR Description Best Practices**:
    - Use markdown format (not HTML)
    - Include direct link to Jira ticket
    - List specific changes with bullet points
    - Include test results with actual numbers
    - List all modified files with brief descriptions
    - Use ✅ checkmarks for completed items
+   - Include AI assistance statement
 
-6. **Conventional Commit Format**:
+9. **Conventional Commit Format**:
    - `feat(JIRA-ID): description` - New features
    - `fix(JIRA-ID): description` - Bug fixes
    - `docs(JIRA-ID): description` - Documentation changes
    - `test(JIRA-ID): description` - Test additions/changes
    - `refactor(JIRA-ID): description` - Code refactoring
    - `chore(JIRA-ID): description` - Maintenance tasks
+   - `perf(JIRA-ID): description` - Performance improvements
+   - `style(JIRA-ID): description` - Code style/formatting changes
+   - `ci(JIRA-ID): description` - CI/CD pipeline changes
+   - `revert(JIRA-ID): description` - Reverting previous changes
 
-7. **Required PR Label**: Always add `runtest:all:stable` label to PRs
+10. **Required PR Labels**: Always add these labels to PRs:
+    - `runtest:all:stable` (for CI/CD testing)
+    - `ai-assisted` (to mark AI-assisted work)
 
 **Step Completion**:
 ```
@@ -324,21 +376,28 @@ This PR [brief description of what this PR does].
 📋 Branch name: [JIRA-ID]
 📋 PR number: #[number]
 📋 PR URL: [URL]
-📋 Label added: runtest:all:stable
+📋 Labels added: runtest:all:stable, ai-assisted
 📝 Next Phase: Update Jira Ticket
 ❓ Do you want to continue with the next phase?
 ```
 
-### Phase 7: Update Jira Ticket
+### Phase 7: Update Jira Ticket (Mandatory)
 
 After PR is created, update the Jira ticket:
 
-1. **Add PR Comment to Jira**:
+1. **Update AI Assistance Field**: Use atlassian-mcp-server to mark the work as AI-assisted
+   - Use `mcp_atlassian-mcp_editJiraIssue` tool
+   - Set custom field `customfield_11170` ("Does this Work Include AI Assisted Code?") to "Yes"
+   - **CRITICAL**: Use correct field format: `{"customfield_11170": {"value": "Yes"}}`
+
+2. **Verify Update**: Confirm the field was updated successfully
+
+3. **Add PR Comment to Jira** (Optional):
    - Use the **atlassian-mcp-server** MCP to add a comment to the Jira ticket
    - Include the PR link and summary of changes
    - Mention test coverage and verification status
 
-2. **Comment Format**:
+4. **Comment Format** (if adding comment):
    ```markdown
    ## Pull Request Created
 
@@ -353,16 +412,19 @@ After PR is created, update the Jira ticket:
    ### Files Changed
    - `[file1.rb]` - [Description]
    - `[file2.rb]` - [Description]
+
+   This work was completed with AI assistance following Progress AI policies.
    ```
 
-3. **Transition Ticket** (if applicable):
+5. **Transition Ticket** (if applicable):
    - Update ticket status to "In Review" or appropriate status
    - Assign to reviewer if needed
 
 **Step Completion**:
 ```
 ✅ Phase 7 Complete: Jira ticket updated
-📋 Comment added to [JIRA-ID]
+📋 AI Assistance field set to "Yes"
+📋 Comment added to [JIRA-ID] (if applicable)
 📋 PR link included in Jira
 📝 Workflow Complete! All phases finished.
 ```
@@ -401,7 +463,7 @@ Use this format after each phase:
 
 ```
 ✅ Phase 1 Complete: Task Analysis & Jira Integration
-📋 Summary: Fetched and analyzed Jira ticket CHEF-27550
+📋 Summary: Fetched and analyzed Jira ticket CHEF-12345
 📋 Key outcomes:
    • Requirement: Handle missing or invalid kubeconfig file gracefully
    • Acceptance criteria: Add error handling with clear user messages
@@ -444,19 +506,49 @@ Use this format after each phase:
 > ```
 >
 > Replace `"your-username"` and `"your-api-token"` with your actual Atlassian credentials.
+
+### MCP Server Functions
+
+For Jira interactions, use the following MCP server functions:
+
+- **Get Issue**: `mcp_atlassian-mcp_getJiraIssue` - Fetch issue details
+- **Edit Issue**: `mcp_atlassian-mcp_editJiraIssue` - Update issue fields (including AI Assistance field)
+- **Search Issues**: `mcp_atlassian-mcp_searchJiraIssuesUsingJql` - Search for related issues
+- **Add Comments**: `mcp_atlassian-mcp_addCommentToJiraIssue` - Add progress comments
+- **Transition Issue**: `mcp_atlassian-mcp_transitionJiraIssue` - Move issue status
+
+**Critical MCP Usage for AI Assistance**:
+```
+# Update AI Assistance field (MANDATORY for all AI-assisted work)
+mcp_atlassian-mcp_editJiraIssue(
+  cloudId: "[YOUR_CLOUD_ID]",
+  issueIdOrKey: "CHEF-12345",
+  fields: {
+    "customfield_11170": {
+      "value": "Yes"
+    }
+  }
+)
+```
+
+### Working with Jira Tickets
+
 When working with Jira tickets:
 1. Use the **atlassian-mcp-server** MCP server for Jira integration
-2. Fetch issue details using the appropriate MCP tools
+2. Fetch issue details using `mcp_atlassian-mcp_getJiraIssue`
 3. Read requirements, acceptance criteria, and comments
 4. Parse technical requirements related to Kubernetes resources
-5. Update ticket status as needed during development
-6. Add comments to ticket when PR is created
+5. Update AI Assistance field using `mcp_atlassian-mcp_editJiraIssue` (MANDATORY)
+6. Verify AI Assistance field update was successful
+7. Optionally add comments to ticket when PR is created using `mcp_atlassian-mcp_addCommentToJiraIssue`
+8. Update ticket status as needed using `mcp_atlassian-mcp_transitionJiraIssue`
 
 **Example MCP Usage**:
 - Fetch issue: Use MCP to get full Jira issue details
 - Read story points: Understand complexity and scope
 - Review attachments: Check for any diagrams or specifications
 - Check linked issues: Identify dependencies or related work
+- Update AI field: Set customfield_11170 to "Yes" for AI-assisted work
 
 ## Code Quality Standards
 
@@ -687,20 +779,23 @@ When implementing a task with a Jira ID, follow this complete 7-phase workflow:
 ### PR Creation
 21. ✅ **Phase 6**: Commit changes with conventional commit message
 22. ✅ **Phase 6**: Push branch to origin
-23. ✅ **Phase 6**: Create PR with markdown-formatted description
-24. ✅ **Phase 6**: Add `runtest:all:stable` label
-25. ✅ Get user confirmation to proceed to Jira update
+23. ✅ **Phase 6**: Ask user to select change type for PR title
+24. ✅ **Phase 6**: Create PR with markdown-formatted description and AI assistance statement
+25. ✅ **Phase 6**: Add `runtest:all:stable` and `ai-assisted` labels
+26. ✅ Get user confirmation to proceed to Jira update
 
 ### Jira Update
-26. ✅ **Phase 7**: Add PR comment to Jira ticket via MCP
-27. ✅ **Phase 7**: Include PR link and implementation summary
-28. ✅ **Phase 7**: Update ticket status if applicable
+27. ✅ **Phase 7**: Update AI Assistance field (customfield_11170) to "Yes" via MCP
+28. ✅ **Phase 7**: Verify AI assistance field was updated successfully
+29. ✅ **Phase 7**: Add PR comment to Jira ticket via MCP (optional)
+30. ✅ **Phase 7**: Include PR link and implementation summary
+31. ✅ **Phase 7**: Update ticket status if applicable
 
 ### Completion
-29. ✅ Provide complete summary of all changes
-30. ✅ List all files modified
-31. ✅ Report test coverage achieved
-32. ✅ Confirm workflow completion
+32. ✅ Provide complete summary of all changes
+33. ✅ List all files modified
+34. ✅ Report test coverage achieved
+35. ✅ Confirm workflow completion
 
 ## Final Checklist
 
@@ -715,10 +810,14 @@ Before completing any task, verify:
 - [ ] All prohibited files left unmodified (*.codegen.go, built gems, VERSION unless bumping)
 - [ ] Changes tested locally with real/mock Kubernetes cluster
 - [ ] Branch created with Jira ID as name
-- [ ] Commits follow conventional commit format (feat/fix/docs/test/refactor/chore)
+- [ ] Commits follow conventional commit format (feat/fix/docs/test/refactor/chore/perf/style/ci/revert)
+- [ ] User selected change type for PR title
 - [ ] PR created with markdown-formatted description (not HTML)
-- [ ] PR labeled with `runtest:all:stable`
-- [ ] Jira ticket updated with PR link and summary via MCP
+- [ ] AI assistance statement included in PR description
+- [ ] PR labeled with `runtest:all:stable` and `ai-assisted`
+- [ ] Jira AI Assistance field (customfield_11170) set to "Yes" via MCP
+- [ ] Jira AI Assistance field update verified
+- [ ] Jira ticket updated with PR link and summary via MCP (optional)
 - [ ] User confirmation received at each phase
 - [ ] Complete summary provided after each phase
 
@@ -769,12 +868,19 @@ If something goes wrong:
 - **Prompt-Based**: Every task is prompt-based with confirmation at each phase
 - **Step Summaries**: Always provide detailed summaries and ask before proceeding to next phase
 - **Test Coverage**: Maintain test coverage above 80% at all times (CRITICAL)
-- **MCP Integration**: Use **atlassian-mcp-server** for Jira integration (fetch issues, add comments)
+- **MCP Integration**: Use **atlassian-mcp-server** for Jira integration (fetch issues, update AI field, add comments)
+- **AI Assistance Field**: MUST update customfield_11170 to "Yes" for all AI-assisted work
 - **Prohibited Files**: Never modify `*.codegen.go` files or built gem artifacts
-- **PR Requirements**: 
-  - Always add `runtest:all:stable` label to PRs
+- **PR Requirements**:
+  - Always add `runtest:all:stable` and `ai-assisted` labels to PRs
   - Use markdown format for PR descriptions (not HTML)
-  - Use conventional commit format: `feat/fix/docs/test/refactor/chore(JIRA-ID): description`
-- **Branch Naming**: Use Jira ID as branch name (e.g., `CHEF-27550`)
+  - Include AI assistance statement: "This work was completed with AI assistance following Progress AI policies."
+  - Ask user to select change type for PR title (feat/fix/docs/test/refactor/chore/perf/style/ci/revert)
+  - Use conventional commit format: `{CHANGE_TYPE}(JIRA-ID): description`
+  - Create PR using `gh pr create --title "{CHANGE_TYPE}: {JIRA_ID} - Brief description" --body-file pr_template.md --label "ai-assisted"`
+- **Branch Naming**: Use Jira ID as branch name (e.g., `CHEF-12345`)
 - **No Auto-Proceed**: Wait for explicit user confirmation before moving to next phase
-- **Jira Updates**: Always update Jira ticket with PR link and summary after PR creation
+- **Jira Updates**:
+  - MUST update AI Assistance field (customfield_11170) to "Yes" via `mcp_atlassian-mcp_editJiraIssue`
+  - Verify field update was successful
+  - Optionally add comment with PR link and summary after field update
