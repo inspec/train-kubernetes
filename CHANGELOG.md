@@ -1,9 +1,10 @@
 # CHANGELOG
 
-<!-- latest_release unreleased -->
-## Unreleased
+<!-- latest_release 0.3.3 -->
+## [v0.3.3](https://github.com/inspec/train-kubernetes/tree/v0.3.3) (2025-11-12)
 
 #### Merged Pull Requests
+- CHEF-26510-Add comprehensive GitHub Copilot instructions for train-kubernetes development [#37](https://github.com/inspec/train-kubernetes/pull/37) ([balasubramanian-s](https://github.com/balasubramanian-s))
 - Add GitHub Actions workflow [#31](https://github.com/inspec/train-kubernetes/pull/31) ([sean-sype-simmons](https://github.com/sean-sype-simmons))
 <!-- latest_release -->
 
@@ -11,6 +12,7 @@
 ### Changes not yet released to rubygems.org
 
 #### Merged Pull Requests
+- CHEF-26510-Add comprehensive GitHub Copilot instructions for train-kubernetes development [#37](https://github.com/inspec/train-kubernetes/pull/37) ([balasubramanian-s](https://github.com/balasubramanian-s)) <!-- 0.3.3 -->
 - Add GitHub Actions workflow [#31](https://github.com/inspec/train-kubernetes/pull/31) ([sean-sype-simmons](https://github.com/sean-sype-simmons)) <!-- 0.3.2 -->
 - CHEF-21404 Enable CI for trufflelog scanning [#30](https://github.com/inspec/train-kubernetes/pull/30) ([Nik08](https://github.com/Nik08)) <!-- 0.3.2 -->
 <!-- release_rollup -->
