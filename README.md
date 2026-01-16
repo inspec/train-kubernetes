@@ -105,3 +105,6 @@ If you wish to contribute to this plugin, please use the usual fork-branch-push-
 ### Reference Information
 
 [Plugin Development](https://github.com/inspec/train/blob/master/docs/dev/plugins.md) is documented on the `train` project on GitHub.
+
+# Copyright
+See [COPYRIGHT.md](./COPYRIGHT.md).
