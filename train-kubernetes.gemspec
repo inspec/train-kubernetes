@@ -48,5 +48,7 @@ Gem::Specification.new do |spec|
   # pinning k8s-ruby to be greater than 0.17.2 since it removes the breaking change for
   # windows builds introduced in 0.17.1
   spec.add_dependency "k8s-ruby", ">= 0.17.2"
-  # spec.add_dependency "train", "~> 3.0"
+  # Use train-core instead of train to avoid Azure SDK dependencies that conflict with Faraday 2.x
+  # train-core provides the core train functionality without the azure/docker/gcp transport dependencies
+  spec.add_dependency "train-core", ">= 3.0"
 end
