@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 gemspec
 
+gem "train", git: "https://github.com/inspec/train", branch: "CHEF-28703-update-azure-gems-to-v2"
+
 # Remaining group is only used for development.
 group :development do
   gem "bundler"

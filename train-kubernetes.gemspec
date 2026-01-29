@@ -48,5 +48,5 @@ Gem::Specification.new do |spec|
   # pinning k8s-ruby to be greater than 0.17.2 since it removes the breaking change for
   # windows builds introduced in 0.17.1
   spec.add_dependency "k8s-ruby", ">= 0.17.2"
-  spec.add_dependency "train", "~> 3.0"
+  # spec.add_dependency "train", "~> 3.0"
 end
